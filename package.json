@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "serve": "esbuild --outdir=www/js --servedir=www src/index.ts"
+  },
+  "devDependencies": {
+    "esbuild": "^0.14.49",
+    "jest": "^28.1.3"
+  }
+}
