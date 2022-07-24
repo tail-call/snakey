@@ -5,11 +5,14 @@ export interface IElement {
 export interface IPath2D {
     moveTo(x: number, y: number): void;
     lineTo(x: number, y: number): void;
-    closePath(x: number, y: number): void;
+    closePath(): void;
 }
 
 export interface IRenderingContext {
+    strokeStyle: string
+    fillStyle: string
     stroke(path: IPath2D): void
+    fill(path: IPath2D, fillRule: 'evenodd' | 'nonzero'): void
 }
 
 export interface ICanvas extends IElement {

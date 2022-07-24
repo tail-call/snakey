@@ -41,3 +41,34 @@ export function drawGrid(
 
     context.stroke(path);
 }
+
+export function drawSnakeBlock(
+    context: IRenderingContext,
+    pathFactory: IPathFactory,
+    options: { x: number, y: number, width: number, height: number }
+) {
+    const path = pathFactory.makePath();
+
+    for (const padding of [0, 4]) {
+        path.moveTo(
+            options.x * options.width + padding,
+            options.y * options.height + padding
+        );
+        path.lineTo(
+            options.x * options.width + options.width - padding,
+            options.y * options.height + padding
+        );
+        path.lineTo(
+            options.x * options.width + options.width - padding,
+            options.y * options.height + options.height - padding
+        );
+        path.lineTo(
+            options.x * options.width + padding,
+            options.y * options.height + options.height - padding
+        );
+        path.closePath();
+    }
+
+    context.fillStyle = '#008800';
+    context.fill(path, 'evenodd');
+}

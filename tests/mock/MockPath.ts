@@ -11,6 +11,23 @@ type MockPathInstruction = {
 export default class MockPath implements IPath2D {
     instructions: MockPathInstruction[] = [];
 
+    get origin(): { x: number, y: number } | null {
+        const firstInstruction = this.instructions[0];
+
+        if (!firstInstruction) {
+            return null;
+        }
+
+        if (firstInstruction.type === 'closePath') {
+            return null;
+        }
+
+        return {
+            x: firstInstruction.x,
+            y: firstInstruction.y
+        }
+    }
+
     moveTo(x: number, y: number): void {
         this.instructions.push({ type: 'moveTo', x, y });
     }
@@ -19,7 +36,7 @@ export default class MockPath implements IPath2D {
         this.instructions.push({ type: 'lineTo', x, y });
     }
 
-    closePath(x: number, y: number): void {
+    closePath(): void {
         this.instructions.push({ type: 'closePath' });
     }
 }
