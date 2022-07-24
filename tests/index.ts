@@ -1,3 +1,3 @@
-import appTest from './app.test';
+import gameTest from './Game.test';
 
-appTest();
+gameTest();
