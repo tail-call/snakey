@@ -1,9 +1,11 @@
 {
   "scripts": {
-    "serve": "esbuild --outdir=www/js --servedir=www src/index.ts"
+    "serve": "esbuild --outdir=www/js --servedir=www src/index.ts",
+    "test": "esbuild --bundle ./tests/index.ts --outdir=test-bundle --sourcemap && node --enable-source-maps test-bundle"
   },
   "devDependencies": {
-    "esbuild": "^0.14.49",
-    "jest": "^28.1.3"
+    "@types/chai": "^4.3.1",
+    "chai": "^4.3.6",
+    "esbuild": "^0.14.49"
   }
 }
