@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "serve": "esbuild --outdir=www/js --servedir=www src/index.ts",
+    "serve": "esbuild --bundle --outdir=www/js --servedir=www src/index.ts",
     "test": "esbuild --bundle ./tests/index.ts --outdir=test-bundle --sourcemap && node --enable-source-maps test-bundle"
   },
   "devDependencies": {

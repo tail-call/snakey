@@ -1,3 +1,3 @@
-import sumTest from './sum.test';
+import appTest from './app.test';
 
-sumTest();
+appTest();
