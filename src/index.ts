@@ -1,6 +1,6 @@
 import { Game } from "./Game";
 import { PathFactory } from "./PathFactory";
-import { drawGrid, drawSnakeBlock } from "./drawing";
+import Display from "./Display";
 
 const app = new Game({
     document,
@@ -11,11 +11,12 @@ const canvas = app.makeCanvas(800, 600);
 document.body.appendChild(canvas as HTMLCanvasElement);
 
 const context = canvas.getContext('2d');
+const display = new Display();
 
-drawGrid(context, app.pathFactory, {
+display.drawGrid(context, app.pathFactory, {
     x: 0, y: 0, cellHeight: 40, cellWidth: 40, columns: 8, rows: 10
 });
 
-drawSnakeBlock(context, app.pathFactory, {
+display.drawSnakeBlock(context, app.pathFactory, {
     x: 3, y: 5, width: 40, height: 40
 });

@@ -1,9 +1,9 @@
 import gameTest from './Game.test';
-import drawingTest from './drawing.test';
+import displayTest from './Display.test';
 
 const tests = [
     gameTest,
-    drawingTest,
+    displayTest,
 ];
 
 for (const test of tests) {

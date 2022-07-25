@@ -1,15 +1,16 @@
-import { expect } from "chai";
-import { drawGrid, drawSnakeBlock } from "../src/drawing";
+import { expect, should } from "chai";
+import Display from "../src/Display";
 import MockRenderingContext from "./mock/MockRenderingContext";
 import MockPath from './mock/MockPath';
 import MockPathFactory from "./mock/MockPathFactory";
 
-export default function drawingTest() {
+export default function displayTest() {
     // Drawing grid
     {
         const context = new MockRenderingContext();
+        const display = new Display();
 
-        drawGrid(context, new MockPathFactory(), {
+        display.drawGrid(context, new MockPathFactory(), {
             x: 0,
             y: 0,
             cellHeight: 10,
@@ -29,8 +30,9 @@ export default function drawingTest() {
     // Drawing snake head
     {
         const context = new MockRenderingContext();
+        const display = new Display();
 
-        drawSnakeBlock(context, new MockPathFactory(), {
+        display.drawSnakeBlock(context, new MockPathFactory(), {
             x: 3, y: 4, height: 25, width: 25
         });
         
