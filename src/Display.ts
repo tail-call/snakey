@@ -13,17 +13,24 @@ export interface IDisplay {
         }
     ): void
     drawSnake(snake: ISnake): void
+    pan(deltaX: number, deltaY: number): void
 }
 
 type DisplayDimensions = {
     blockWidth: number,
     blockHeight: number,
-}
+};
+
+type Viewport = {
+    xOffset: number,
+    yOffset: number,
+};
 
 export default class Display implements IDisplay {
     context: IRenderingContext
     pathFactory: IPathFactory
     dimensions: DisplayDimensions
+    viewport: Viewport;
 
     constructor(
         context: IRenderingContext,
@@ -33,6 +40,11 @@ export default class Display implements IDisplay {
         this.context = context;
         this.pathFactory = pathFactory;
         this.dimensions = dimensions;
+
+        this.viewport = {
+            xOffset: 0,
+            yOffset: 0,
+        };
     }
 
     clear(): void {
@@ -116,5 +128,10 @@ export default class Display implements IDisplay {
                 height: this.dimensions.blockHeight
             });
         }
+    }
+
+    pan(deltaX: number, deltaY: number): void {
+        this.viewport.xOffset += deltaX;
+        this.viewport.yOffset += deltaY;
     }
 }

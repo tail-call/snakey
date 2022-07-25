@@ -101,4 +101,17 @@ export default function displayTest() {
 
         expect(context.instructions).to.be.lengthOf(8);
     }
+
+    // Panning
+    {
+        const { context, display } = makeDisplay();
+
+        expect(display.viewport).to.deep.equal({ xOffset: 0, yOffset: 0 });
+
+        display.pan(10, 20);
+        expect(display.viewport).to.deep.equal({ xOffset: 10, yOffset: 20 });
+
+        display.pan(-20, -40);
+        expect(display.viewport).to.deep.equal({ xOffset: -10, yOffset: -20 });
+    }
 }

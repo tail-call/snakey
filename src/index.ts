@@ -55,5 +55,5 @@ document.addEventListener('mousemove', (event: MouseEvent) => {
 
     lastPosition = { x: event.clientX, y: event.clientY };
 
-    console.log(deltaX, deltaY);
+    display.pan(deltaX, deltaY);
 });
