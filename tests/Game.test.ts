@@ -22,9 +22,9 @@ export default function gameTest() {
         const { game, display } = makeGame();
 
         game.drawWorld();
-        expect(display.displayedItems).to.have.lengthOf(2);
+        expect(display.displayedItems).to.have.lengthOf(3);
         expect(display.displayedItems).to.contain.all.members([
-            "grid", game.snakes[0]
+            "clear", "grid", game.snakes[0]
         ]);
     }
 

@@ -23,6 +23,8 @@ export class Game implements ISnakeDelegate {
     }
 
     drawWorld() {
+        this.display.clear();
+
         this.display.drawGrid({
             x: 0, y: 0, columns: 8, rows: 10
         });
