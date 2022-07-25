@@ -26,8 +26,6 @@ export default function displayTest() {
         display.drawGrid({
             x: 0,
             y: 0,
-            cellHeight: 10,
-            cellWidth: 10,
             columns: 10,
             rows: 10
         });

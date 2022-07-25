@@ -7,8 +7,6 @@ export interface IDisplay {
         options: {
             x: number,
             y: number,
-            cellWidth: number,
-            cellHeight: number,
             columns: number,
             rows: number,
         }
@@ -41,8 +39,6 @@ export default class Display implements IDisplay {
         options: {
             x: number,
             y: number,
-            cellWidth: number,
-            cellHeight: number,
             columns: number,
             rows: number,
         }
@@ -50,25 +46,25 @@ export default class Display implements IDisplay {
         const path = this.pathFactory.makePath();
 
         for (let column = 0; column <= options.columns; column++) {
-            const x = options.x + column * options.cellWidth; 
+            const x = options.x + column * this.dimensions.blockWidth;
             path.moveTo(
                 x, 
                 options.y
             );
             path.lineTo(
                 x,
-                options.y + options.cellHeight * options.rows
+                options.y + this.dimensions.blockHeight * options.rows
             );
         }
 
         for (let row = 0; row <= options.rows; row++) {
-            const y = options.y + row * options.cellHeight; 
+            const y = options.y + row * this.dimensions.blockHeight;
             path.moveTo(
                 options.x,
                 y
             );
             path.lineTo(
-                options.x + options.cellWidth * options.columns,
+                options.x + this.dimensions.blockWidth * options.columns,
                 y
             );
         }

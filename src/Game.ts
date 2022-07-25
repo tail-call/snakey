@@ -24,7 +24,7 @@ export class Game implements ISnakeDelegate {
 
     drawWorld() {
         this.display.drawGrid({
-            x: 0, y: 0, cellHeight: 40, cellWidth: 40, columns: 8, rows: 10
+            x: 0, y: 0, columns: 8, rows: 10
         });
 
         for (const snake of this.snakes) {
