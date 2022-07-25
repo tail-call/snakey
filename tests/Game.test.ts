@@ -17,6 +17,6 @@ export default function gameTest() {
     {
         game.drawWorld();
         expect(display.displayedItems).to.have.lengthOf(2);
-        expect(display.displayedItems).to.contain.all.members(["grid", "snake"]);
+        expect(display.displayedItems).to.contain.all.members(["grid", game.snakes[0]]);
     }
 }

@@ -1,6 +1,7 @@
 import { IDisplay } from "../../src/Display";
+import { ISnake } from "../../src/Snake";
 
-type DisplayedItem = "grid" | "snake";
+type DisplayedItem = "grid" | ISnake;
 
 export default class MockDisplay implements IDisplay {
     displayedItems: DisplayedItem[] = []
@@ -16,9 +17,7 @@ export default class MockDisplay implements IDisplay {
         this.displayedItems.push("grid");
     }
 
-    drawSnakeBlock(options: {
-        x: number; y: number; width: number; height: number;
-    }): void {
-        this.displayedItems.push("snake");     
+    drawSnake(snake: ISnake): void {
+        this.displayedItems.push(snake);
     }
 }

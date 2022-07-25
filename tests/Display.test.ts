@@ -3,11 +3,19 @@ import Display from "../src/Display";
 import MockRenderingContext from "./mock/MockRenderingContext";
 import MockPath from './mock/MockPath';
 import MockPathFactory from "./mock/MockPathFactory";
+import { ISnakeDelegate, Snake } from "../src/Snake";
 
 function makeDisplay(): { display: Display, context: MockRenderingContext } {
     const context = new MockRenderingContext();
     const pathFactory = new MockPathFactory();
-    return { context, display: new Display(context, pathFactory) };
+    return {
+        context,
+        display: new Display(
+            context,
+            pathFactory,
+            { blockHeight: 100, blockWidth: 100 }
+        )
+    };
 }
 
 export default function displayTest() {
@@ -49,5 +57,20 @@ export default function displayTest() {
         expect(origin.y).to.be.equal(4 * 25);
         expect(context.instructions[0].type).to.be.equal('fill');
         expect(context.instructions[0].fillStyle).to.be.equal('#008800');
+    }
+
+    // Drawing snake
+    {
+        const { context, display } = makeDisplay();
+        
+        const snakeDelegate: ISnakeDelegate = {
+            snakeDidIntersectWithSelf() {}
+        };
+
+        display.drawSnake(
+            new Snake(snakeDelegate, 8, { x: 434, y: 883 }, "south" )
+        );
+
+        expect(context.instructions).to.be.lengthOf(8);
     }
 }

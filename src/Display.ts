@@ -1,5 +1,6 @@
 import { IRenderingContext } from "./dom-interaces";
 import { IPathFactory } from "./PathFactory";
+import { ISnake } from "./Snake";
 
 export interface IDisplay {
     drawGrid(
@@ -13,18 +14,27 @@ export interface IDisplay {
         }
     ): void
     
-    drawSnakeBlock(
-        options: { x: number, y: number, width: number, height: number }
-    ): void
+    drawSnake(snake: ISnake): void
 }
 
-export default class Display {
+type DisplayDimensions = {
+    blockWidth: number,
+    blockHeight: number,
+}
+
+export default class Display implements IDisplay {
     context: IRenderingContext
     pathFactory: IPathFactory
+    dimensions: DisplayDimensions
 
-    constructor(context: IRenderingContext, pathFactory: IPathFactory) {
+    constructor(
+        context: IRenderingContext,
+        pathFactory: IPathFactory,
+        dimensions: DisplayDimensions,
+    ) {
         this.context = context;
         this.pathFactory = pathFactory;
+        this.dimensions = dimensions;
     }
 
     drawGrid(
@@ -93,5 +103,15 @@ export default class Display {
 
         this.context.fillStyle = '#008800';
         this.context.fill(path, 'evenodd');
+    }
+
+    drawSnake(snake: ISnake): void {
+        for (const block of snake.blocks) {
+            this.drawSnakeBlock({
+                ...block,
+                width: this.dimensions.blockWidth,
+                height: this.dimensions.blockHeight
+            });
+        }
     }
 }
