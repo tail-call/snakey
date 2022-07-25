@@ -2,18 +2,21 @@ import { Game } from "../src/Game";
 import { MockDocument } from "./mock/MockDocument";
 import { expect } from "chai";
 import MockPathFactory from "./mock/MockPathFactory";
+import MockDisplay from "./mock/MockDisplay";
 
 export default function gameTest() {
-    const app = new Game({
+    const display = new MockDisplay();
+
+    const game = new Game({
         document: MockDocument,
         pathFactory: new MockPathFactory(),
+        display,
     });
 
-    // Setting proper width, height, tag name
+    // Drawing world
     {
-        const canvas = app.makeCanvas(123, 456);
-        expect(canvas.tagName).to.be.equal('CANVAS');
-        expect(canvas.width).to.be.equal(123);
-        expect(canvas.height).to.be.equal(456);
+        game.drawWorld();
+        expect(display.displayedItems).to.have.lengthOf(2);
+        expect(display.displayedItems).to.contain.all.members(["grid", "snake"]);
     }
 }
