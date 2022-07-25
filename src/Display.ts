@@ -3,8 +3,6 @@ import { IPathFactory } from "./PathFactory";
 
 export interface IDisplay {
     drawGrid(
-        context: IRenderingContext,
-        pathFactory: IPathFactory,
         options: {
             x: number,
             y: number,
@@ -16,16 +14,20 @@ export interface IDisplay {
     ): void
     
     drawSnakeBlock(
-        context: IRenderingContext,
-        pathFactory: IPathFactory,
         options: { x: number, y: number, width: number, height: number }
     ): void
 }
 
 export default class Display {
+    context: IRenderingContext
+    pathFactory: IPathFactory
+
+    constructor(context: IRenderingContext, pathFactory: IPathFactory) {
+        this.context = context;
+        this.pathFactory = pathFactory;
+    }
+
     drawGrid(
-        context: IRenderingContext,
-        pathFactory: IPathFactory,
         options: {
             x: number,
             y: number,
@@ -35,7 +37,7 @@ export default class Display {
             rows: number,
         }
     ) {
-        const path = pathFactory.makePath();
+        const path = this.pathFactory.makePath();
 
         for (let column = 0; column <= options.columns; column++) {
             const x = options.x + column * options.cellWidth; 
@@ -61,15 +63,13 @@ export default class Display {
             );
         }
 
-        context.stroke(path);
+        this.context.stroke(path);
     }
 
     drawSnakeBlock(
-        context: IRenderingContext,
-        pathFactory: IPathFactory,
         options: { x: number, y: number, width: number, height: number }
     ) {
-        const path = pathFactory.makePath();
+        const path = this.pathFactory.makePath();
 
         for (const padding of [0, 4]) {
             path.moveTo(
@@ -91,7 +91,7 @@ export default class Display {
             path.closePath();
         }
 
-        context.fillStyle = '#008800';
-        context.fill(path, 'evenodd');
+        this.context.fillStyle = '#008800';
+        this.context.fill(path, 'evenodd');
     }
 }

@@ -4,13 +4,18 @@ import MockRenderingContext from "./mock/MockRenderingContext";
 import MockPath from './mock/MockPath';
 import MockPathFactory from "./mock/MockPathFactory";
 
+function makeDisplay(): { display: Display, context: MockRenderingContext } {
+    const context = new MockRenderingContext();
+    const pathFactory = new MockPathFactory();
+    return { context, display: new Display(context, pathFactory) };
+}
+
 export default function displayTest() {
     // Drawing grid
     {
-        const context = new MockRenderingContext();
-        const display = new Display();
+        const { display, context } = makeDisplay();
 
-        display.drawGrid(context, new MockPathFactory(), {
+        display.drawGrid({
             x: 0,
             y: 0,
             cellHeight: 10,
@@ -29,10 +34,9 @@ export default function displayTest() {
 
     // Drawing snake head
     {
-        const context = new MockRenderingContext();
-        const display = new Display();
+        const { context, display } = makeDisplay();
 
-        display.drawSnakeBlock(context, new MockPathFactory(), {
+        display.drawSnakeBlock({
             x: 3, y: 4, height: 25, width: 25
         });
         
