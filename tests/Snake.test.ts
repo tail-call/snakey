@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { ISnakeDelegate, Snake } from "../src/Snake";
+import { addPoints, ISnakeDelegate, Snake } from "../src/Snake";
 
 function makeDelegate(): ISnakeDelegate {
     return new class {
@@ -12,6 +12,14 @@ function makeDelegate(): ISnakeDelegate {
 }
 
 export default function snakeTest() {
+    // Test point arithmetics
+    {
+        expect(addPoints({ x: 1, y: 2 }, { x: 3, y: 4 }))
+            .to.deep.equal({ x: 4, y: 6 });
+        expect(addPoints({ x: 20, y: 40 }, { x: -20, y: -40 }))
+            .to.deep.equal({ x: 0, y: 0 });
+    }
+
     // Test construction
     {
         const delegate = makeDelegate();
@@ -31,13 +39,15 @@ export default function snakeTest() {
             snake.move();
         }
 
-        expect(snake.blocks).to.include.all.members([
-            { x: 0, y: 0 },
+        expect(snake.blocks).to.deep.equal([
             { x: 1, y: 0 },
             { x: 2, y: 0 },
             { x: 3, y: 0 },
             { x: 4, y: 0 },
-        ])
+            { x: 5, y: 0 },
+        ]);
+
+        expect(snake.head).to.deep.equal({ x: 5, y: 0 });
     }
 
     // Test movement west
@@ -49,13 +59,15 @@ export default function snakeTest() {
             snake.move();
         }
 
-        expect(snake.blocks).to.include.all.members([
-            { x:  0, y: 0 },
+        expect(snake.blocks).to.deep.equal([
             { x: -1, y: 0 },
             { x: -2, y: 0 },
             { x: -3, y: 0 },
             { x: -4, y: 0 },
-        ])
+            { x: -5, y: 0 },
+        ]);
+
+        expect(snake.head).to.deep.equal({ x: -5, y: 0 });
     }
 
     // Test movement south
@@ -67,13 +79,15 @@ export default function snakeTest() {
             snake.move();
         }
 
-        expect(snake.blocks).to.include.all.members([
-            { x: 0, y: 0 },
+        expect(snake.blocks).to.deep.equal([
             { x: 0, y: 1 },
             { x: 0, y: 2 },
             { x: 0, y: 3 },
             { x: 0, y: 4 },
-        ])
+            { x: 0, y: 5 },
+        ]);
+
+        expect(snake.head).to.deep.equal({ x: 0, y: 5 });
     }
 
     // Test movement north
@@ -85,12 +99,14 @@ export default function snakeTest() {
             snake.move();
         }
 
-        expect(snake.blocks).to.include.all.members([
-            { x: 0, y:  0 },
+        expect(snake.blocks).to.deep.equal([
             { x: 0, y: -1 },
             { x: 0, y: -2 },
             { x: 0, y: -3 },
             { x: 0, y: -4 },
-        ])
+            { x: 0, y: -5 },
+        ]);
+
+        expect(snake.head).to.deep.equal({ x: 0, y: -5 });
     }
 }
