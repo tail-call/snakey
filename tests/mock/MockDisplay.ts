@@ -1,10 +1,14 @@
 import { IDisplay } from "../../src/Display";
 import { ISnake } from "../../src/Snake";
 
-type DisplayedItem = "grid" | ISnake;
+type DisplayedItem = "clear" | "grid" | ISnake;
 
 export default class MockDisplay implements IDisplay {
     displayedItems: DisplayedItem[] = []
+
+    clear(): void {
+        this.displayedItems = ["clear"];
+    }
 
     drawGrid(options: {
         x: number;

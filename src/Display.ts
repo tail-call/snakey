@@ -3,6 +3,7 @@ import { IPathFactory } from "./PathFactory";
 import { ISnake } from "./Snake";
 
 export interface IDisplay {
+    clear(): void
     drawGrid(
         options: {
             x: number,
@@ -11,7 +12,6 @@ export interface IDisplay {
             rows: number,
         }
     ): void
-    
     drawSnake(snake: ISnake): void
 }
 
@@ -33,6 +33,13 @@ export default class Display implements IDisplay {
         this.context = context;
         this.pathFactory = pathFactory;
         this.dimensions = dimensions;
+    }
+
+    clear(): void {
+        this.context.clearRect(
+            0, 0,
+            this.context.canvas.width, this.context.canvas.height
+        );
     }
 
     drawGrid(
