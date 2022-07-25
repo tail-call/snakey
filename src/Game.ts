@@ -8,7 +8,7 @@ export class Game implements ISnakeDelegate {
     pathFactory: IPathFactory;
     display: IDisplay;
 
-    snakes: Snake[] = [];
+    snakes: ISnake[] = [];
 
     constructor(options: {
         document: IDocument,
@@ -29,6 +29,12 @@ export class Game implements ISnakeDelegate {
 
         for (const snake of this.snakes) {
             this.display.drawSnake(snake);
+        }
+    }
+
+    step() {
+        for (const snake of this.snakes) {
+            snake.move();
         }
     }
 

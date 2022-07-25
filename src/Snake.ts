@@ -15,7 +15,7 @@ export interface ISnakeDelegate {
 export interface ISnake {
     delegate: ISnakeDelegate
     blocks: Point[]
-    movementDirection: Direction
+    readonly movementDirection: Direction
 
     move(): void
 }
