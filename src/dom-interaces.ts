@@ -15,6 +15,8 @@ export interface IRenderingContext {
     stroke(path: IPath2D): void
     fill(path: IPath2D, fillRule: 'evenodd' | 'nonzero'): void
     clearRect(x: number, y: number, width: number, height: number): void
+    translate(x: number, y: number): void
+    resetTransform(): void
 }
 
 export interface ICanvas extends IElement {

@@ -62,6 +62,8 @@ export default class Display implements IDisplay {
             rows: number,
         }
     ) {
+        this.context.translate(this.viewport.xOffset, this.viewport.yOffset);
+
         const path = this.pathFactory.makePath();
 
         for (let column = 0; column <= options.columns; column++) {
@@ -89,11 +91,15 @@ export default class Display implements IDisplay {
         }
 
         this.context.stroke(path);
+
+        this.context.resetTransform();
     }
 
     drawSnakeBlock(
         options: { x: number, y: number, width: number, height: number }
     ) {
+        this.context.translate(this.viewport.xOffset, this.viewport.yOffset);
+
         const path = this.pathFactory.makePath();
 
         for (const padding of [0, 4]) {
@@ -118,6 +124,8 @@ export default class Display implements IDisplay {
 
         this.context.fillStyle = '#008800';
         this.context.fill(path, 'evenodd');
+
+        this.context.resetTransform();
     }
 
     drawSnake(snake: ISnake): void {

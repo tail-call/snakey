@@ -1,9 +1,9 @@
 import { IPath2D, IRenderingContext, ICanvas } from "../../src/dom-interaces";
 
 type MockRenderInstruction = {
-    type: 'stroke' | 'fill', path: IPath2D, strokeStyle: string, fillStyle: string
+    type: 'stroke' | 'fill', path: IPath2D, strokeStyle: string, fillStyle: string, translation: { x: number, y: number }
 } | {
-    type: 'clearRect', x: number, y: number, height: number, width: number
+    type: 'clearRect', x: number, y: number, height: number, width: number, translation: { x: number, y: number }
 };
 
 export default class MockRenderingContext implements IRenderingContext {
@@ -12,8 +12,14 @@ export default class MockRenderingContext implements IRenderingContext {
     strokeStyle = 'mockDefault';
     fillStyle = 'mockDefault';
 
+    translation = { x: 0, y: 0 };
+
     constructor(canvas: ICanvas) {
         this.canvas = canvas;
+    }
+
+    get lastInstruction(): MockRenderInstruction | undefined {
+        return this.instructions[this.instructions.length - 1];
     }
 
     stroke(path: IPath2D): void {
@@ -21,7 +27,8 @@ export default class MockRenderingContext implements IRenderingContext {
             type: 'stroke',
             path,
             strokeStyle: this.strokeStyle,
-            fillStyle: this.fillStyle
+            fillStyle: this.fillStyle,
+            translation: this.translation
         });
     }
 
@@ -30,14 +37,29 @@ export default class MockRenderingContext implements IRenderingContext {
             type: 'fill',
             path,
             strokeStyle: this.strokeStyle,
-            fillStyle: this.fillStyle
+            fillStyle: this.fillStyle,
+            translation: this.translation
         });
     }
 
     clearRect(x: number, y: number, width: number, height: number): void {
         this.instructions.push({
             type: 'clearRect',
-            x, y, width, height
+            x, y, width, height,
+            translation: this.translation
         });
+    }
+
+    translate(x: number, y: number): void {
+        this.translation = {
+            x: this.translation.x + x,
+            y: this.translation.y + y
+        }; 
+    }
+
+    resetTransform(): void {
+        this.translation = {
+            x: 0, y: 0
+        };
     }
 }

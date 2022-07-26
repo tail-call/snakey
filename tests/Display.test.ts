@@ -34,6 +34,7 @@ export default function displayTest() {
         expect(context.instructions[0]).to.deep.equal({
             type: 'clearRect', x: 0, y: 0,
             width: context.canvas.width, height: context.canvas.height,
+            translation: { x: 0, y: 0 }
         });
     }
  
@@ -113,5 +114,21 @@ export default function displayTest() {
 
         display.pan(-20, -40);
         expect(display.viewport).to.deep.equal({ xOffset: -10, yOffset: -20 });
+    }
+
+    // Translation
+    {
+        const { context, display } = makeDisplay();
+
+        display.pan(10, 10);
+        display.drawGrid({ x: 0, y: 0, columns: 1, rows: 1 });
+
+        expect(context.instructions[0].translation)
+            .to.deep.equal({ x: 10, y: 10 })
+
+        display.clear();
+
+        expect(context.lastInstruction?.translation)
+            .to.deep.equal({ x: 0, y: 0 })
     }
 }
