@@ -16,18 +16,6 @@ function makeGame(): { game: Game, display: MockDisplay } {
 }
 
 export default function gameTest() {
-
-    // Drawing world
-    {
-        const { game, display } = makeGame();
-
-        game.drawWorld();
-        expect(display.displayedItems).to.have.lengthOf(3);
-        expect(display.displayedItems).to.contain.all.members([
-            "clear", "grid", game.snakes[0]
-        ]);
-    }
-
     // Simulating a world
     {
         const { game } = makeGame();

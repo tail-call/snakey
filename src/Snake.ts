@@ -1,5 +1,5 @@
-type Point = { x: number, y: number };
-type Direction = "north" | "south" | "east" | "west";
+export type Point = { x: number, y: number };
+export type Direction = "north" | "south" | "east" | "west";
 
 export function addPoints(pointA: Point, pointB: Point): Point {
     return {

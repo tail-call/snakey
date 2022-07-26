@@ -5,6 +5,7 @@ import MockPath from './mock/MockPath';
 import MockPathFactory from "./mock/MockPathFactory";
 import { ISnakeDelegate, Snake } from "../src/Snake";
 import MockCanvas from "./mock/MockCanvas";
+import MockSnake from "./mock/MockSnake";
 
 function makeDisplay(): { display: Display, context: MockRenderingContext } {
     const canvas = new MockCanvas();
@@ -23,6 +24,23 @@ function makeDisplay(): { display: Display, context: MockRenderingContext } {
 }
 
 export default function displayTest() {
+    // Drawing world
+    {
+        const { display, context } = makeDisplay();
+
+        expect(context.instructions).to.be.empty;
+
+        const snakes = [
+            new MockSnake(),
+            new MockSnake(),
+            new MockSnake(),
+        ];
+
+        display.drawWorld(snakes);
+            
+        expect(context.instructions).to.be.not.empty;
+    }
+
     // Clearing screen
     {
         const { display, context } = makeDisplay();

@@ -25,8 +25,6 @@ const game = new Game({
     display,
 });
 
-game.drawWorld();
-
 let isPanning = false
 let lastPosition = { x: 0, y: 0 };
 
@@ -57,7 +55,8 @@ setInterval(() => {
     game.step();
 }, 200);
 
+display.drawWorld(game.snakes);
 (function animate() {
-    game.drawWorld();
+    display.drawWorld(game.snakes);
     requestAnimationFrame(animate);
 })();

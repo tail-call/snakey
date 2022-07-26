@@ -3,17 +3,8 @@ import { IPathFactory } from "./PathFactory";
 import { ISnake } from "./Snake";
 
 export interface IDisplay {
-    clear(): void
-    drawGrid(
-        options: {
-            x: number,
-            y: number,
-            columns: number,
-            rows: number,
-        }
-    ): void
-    drawSnake(snake: ISnake): void
     pan(deltaX: number, deltaY: number): void
+    drawWorld(snakes: ISnake[]): void
 }
 
 type DisplayDimensions = {
@@ -141,5 +132,17 @@ export default class Display implements IDisplay {
     pan(deltaX: number, deltaY: number): void {
         this.viewport.xOffset += deltaX;
         this.viewport.yOffset += deltaY;
+    }
+
+    drawWorld(snakes: ISnake[]) {
+        this.clear();
+
+        this.drawGrid({
+            x: 0, y: 0, columns: 20, rows: 15
+        });
+
+        for (const snake of snakes) {
+            this.drawSnake(snake);
+        }
     }
 }

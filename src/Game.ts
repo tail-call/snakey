@@ -22,18 +22,6 @@ export class Game implements ISnakeDelegate {
         this.snakes.push(new Snake(this, 5, { x: 3, y: 5 }, "east"));
     }
 
-    drawWorld() {
-        this.display.clear();
-
-        this.display.drawGrid({
-            x: 0, y: 0, columns: 20, rows: 15
-        });
-
-        for (const snake of this.snakes) {
-            this.display.drawSnake(snake);
-        }
-    }
-
     step() {
         for (const snake of this.snakes) {
             snake.move();
