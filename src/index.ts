@@ -27,11 +27,6 @@ const game = new Game({
 
 game.drawWorld();
 
-setInterval(() => {
-    game.step();
-    game.drawWorld();
-}, 200);
-
 let isPanning = false
 let lastPosition = { x: 0, y: 0 };
 
@@ -57,3 +52,12 @@ document.addEventListener('mousemove', (event: MouseEvent) => {
 
     display.pan(deltaX, deltaY);
 });
+
+setInterval(() => {
+    game.step();
+}, 200);
+
+(function animate() {
+    game.drawWorld();
+    requestAnimationFrame(animate);
+})();
